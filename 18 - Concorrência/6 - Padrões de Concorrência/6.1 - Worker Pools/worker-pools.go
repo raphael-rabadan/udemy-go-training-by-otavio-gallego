@@ -3,20 +3,26 @@ package main
 import "fmt"
 
 func main() {
-	tarefas := make(chan int, 45)
-	resultados := make(chan int, 45)
 
-	go worker(tarefas, resultados)
-	go worker(tarefas, resultados)
-	go worker(tarefas, resultados)
-	go worker(tarefas, resultados)
+	qtdVezes := 45
+	tarefas := make(chan int, qtdVezes)
+	resultados := make(chan int, qtdVezes)
 
-	for i := 0; i < 45; i++ {
+	for i := 0; i < qtdVezes; i++ {
+		go worker(tarefas, resultados)
+	}
+
+	// go worker(tarefas, resultados)
+	// go worker(tarefas, resultados)
+	// go worker(tarefas, resultados)
+	// go worker(tarefas, resultados)
+
+	for i := 0; i < qtdVezes; i++ {
 		tarefas <- i
 	}
 	close(tarefas)
 
-	for i := 0; i < 45; i++ {
+	for i := 0; i < qtdVezes; i++ {
 		resultado := <-resultados
 		fmt.Println(resultado)
 	}

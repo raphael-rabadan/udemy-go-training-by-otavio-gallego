@@ -15,7 +15,7 @@ func main() {
 
 func escrever(texto string) {
 
-	for i := 0; ; i++ {
+	for i := 0; i <= 3; i++ {
 
 		fmt.Printf("[%d] %s\n", i, texto)
 		time.Sleep(time.Second)
